@@ -164,4 +164,4 @@ def validate_token():
         return jsonify({'message': 'Authentication failed. Please contact the admin.'}), 401
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0",port=8000)
