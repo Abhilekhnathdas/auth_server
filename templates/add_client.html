@@ -1,0 +1,40 @@
+<!-- add_client.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Client</title>
+</head>
+<body>
+    <h1>Add Client</h1>
+    <form id="add-client-form">
+        <label for="email">Client Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="expiry_date">Expiry Date:</label><br>
+        <input type="date" id="expiry_date" name="expiry_date"><br><br>
+        <button type="submit">Add Client</button>
+    </form>
+    <br>
+    <a href="{{ url_for('render_change_status_page') }}">Change Client Status</a><br>
+    <a href="{{ url_for('render_handle_expiry_page') }}">Handle Expiry</a>
+
+    <script>
+        document.getElementById('add-client-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('/auth/admin/add_client', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData.entries())),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

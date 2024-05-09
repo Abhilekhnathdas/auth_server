@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handle Expiry</title>
+</head>
+<body>
+    <h1>Handle Expiry</h1>
+    <form id="handle-expiry-form">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="expiry-date">New Expiry Date:</label><br>
+        <input type="date" id="expiry-date" name="expiry_date"><br><br>
+        <button type="submit">Handle Expiry</button>
+    </form>
+    <br>
+    <a href="{{ url_for('render_add_client_page') }}">Add Client</a><br>
+    <a href="{{ url_for('render_change_status_page') }}">Change Client Status</a>
+
+    <script>
+        document.getElementById('handle-expiry-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const jsonData = {};
+            formData.forEach((value, key) => {jsonData[key] = value});
+            fetch('/auth/admin/handle_expiry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

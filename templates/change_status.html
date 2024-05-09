@@ -1,0 +1,43 @@
+<!-- change_status.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Client Status</title>
+</head>
+<body>
+    <h1>Change Client Status</h1>
+    <form id="change-status-form">
+        <label for="email">Client Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="status">New Status:</label><br>
+        <select id="status" name="status">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+        </select><br><br>
+        <button type="submit">Change Status</button>
+    </form>
+    <br>
+    <a href="{{ url_for('render_add_client_page') }}">Add Client</a><br>
+    <a href="{{ url_for('render_handle_expiry_page') }}">Handle Expiry</a>
+
+    <script>
+        document.getElementById('change-status-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('/auth/admin/change_status', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData.entries())),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

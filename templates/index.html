@@ -1,0 +1,18 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Welcome to Admin Panel</h1>
+    <ul>
+        <li><a href="{{ url_for('render_add_client_page') }}">Add Client</a></li>
+        <li><a href="{{ url_for('render_change_status_page') }}">Change Client Status</a></li>
+        <li><a href="{{ url_for('render_handle_expiry_page') }}">Handle Expiry</a></li>
+    </ul>
+</body>
+</html>
